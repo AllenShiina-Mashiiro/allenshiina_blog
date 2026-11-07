@@ -37,7 +37,7 @@ export default function HomeExperience() {
   const monthLabel = new Intl.DateTimeFormat(english ? "en-US" : "zh-CN", { year: "numeric", month: "long" }).format(month);
   const days = useMemo(() => { const first = new Date(month.getFullYear(), month.getMonth(), 1).getDay(); const total = new Date(month.getFullYear(), month.getMonth()+1, 0).getDate(); return [...Array(first).fill(null), ...Array.from({length: total}, (_,i)=>i+1)]; }, [month]);
   const t = (zh: string, en: string) => english ? en : zh;
-  return <main className={dark ? "site dark" : "site light"}>
+  return <main className={`site home-immersive ${dark ? "dark" : "light"}`} style={heroBackgrounds[heroIndex]?{backgroundImage:`linear-gradient(115deg,rgba(8,18,29,.62),rgba(20,27,38,.22) 52%,rgba(250,245,237,.18)),url(${heroBackgrounds[heroIndex]})`}:undefined}>
     {petals && <SakuraPetals count={38} opacity={0.8} wind={0.8} zIndex={4} />}
     <div className="ambient ambient-one"/><div className="ambient ambient-two"/>
     <header className="topbar">
@@ -60,28 +60,43 @@ export default function HomeExperience() {
       <div className="hero-bottom"><span>✿ &nbsp; 桜の季節、また会いましょう。</span><span>35° 41′ N · 139° 41′ E</span></div>
     </section>
 
-    <div className="home-content-surface"><div className="content-wrap">
-      <aside className="left-column">
-        <section className="profile-card glass-card">
-          <div className="profile-cover"><span>🌸</span></div><div className="avatar-art">{profileAvatar?<img src={profileAvatar} alt="管理员头像"/>:<div className="avatar-face">A</div>}<span className="online-dot"/></div>
-          <h2>{profileName}</h2><p className="handle">@{profileUsername}</p><p className="bio">{english?"In love with code, anime, and little moments.":profileBio}</p>{profileCardImage&&<img className="profile-business-card" src={profileCardImage} alt="AllenShiina 个人名片"/>}
-          <div className="socials"><a href={bilibiliUrl} target="_blank" rel="noreferrer" aria-label="Bilibili"><Youtube size={16}/></a><a href={githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={16}/></a>{customLinks.map((x,i)=><a key={`${x.url}-${i}`} href={x.url} target="_blank" rel="noreferrer" aria-label={x.label} title={x.label}><Globe2 size={16}/></a>)}<Link href={`/profile/@${encodeURIComponent(profileUsername)}`} aria-label="Personal page"><Globe2 size={16}/></Link></div>
-          <div className="profile-stats"><div><b>{stats.notes}</b><span>{t("笔记","Notes")}</span></div><div><b>{stats.moments}</b><span>{t("时刻","Moments")}</span></div><div><b>—</b><span>{t("站点","Site")}</span></div></div>
+    <div className="home-content-surface">
+      <div className="immersive-columns">
+        <aside className="immersive-profile">
+          <div className="immersive-profile-inner">
+            <div className="immersive-kicker"><Sparkles size={14}/> PERSONAL SPACE</div>
+            <div className="immersive-avatar">{profileAvatar?<img src={profileAvatar} alt={profileName}/>:<span>A</span>}<i/></div>
+            <h2>{profileName}</h2>
+            <p className="immersive-handle">@{profileUsername}</p>
+            <p className="immersive-bio">{english?"In love with code, anime, and little moments.":profileBio}</p>
+            <div className="immersive-socials">
+              <a href={bilibiliUrl} target="_blank" rel="noreferrer" aria-label="Bilibili"><Youtube size={17}/></a>
+              <a href={githubUrl} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={17}/></a>
+              {customLinks.map((x,i)=><a key={`${x.url}-${i}`} href={x.url} target="_blank" rel="noreferrer" aria-label={x.label} title={x.label}><Globe2 size={17}/></a>)}
+              <Link href={`/profile/@${encodeURIComponent(profileUsername)}`} aria-label="Personal page"><UserRound size={17}/></Link>
+            </div>
+            <div className="immersive-divider"/>
+            <div className="immersive-section-label">{t("探索空间","EXPLORE")}</div>
+            <nav className="immersive-categories">
+              {nav.map(([label,href,Icon])=><Link href={href} key={href}><Icon size={17}/><span>{t(label,({学习笔记:"Notes",资源导航:"Resources",时刻:"Moments",动漫:"Anime",聊天室:"Chat",关于:"About"} as Record<string,string>)[label])}</span><ChevronRight size={14}/></Link>)}
+            </nav>
+            <div className="immersive-divider"/>
+            <div className="immersive-stats">
+              <div><b>{stats.notes}</b><span>{t("笔记","Notes")}</span></div>
+              <div><b>{stats.moments}</b><span>{t("时刻","Moments")}</span></div>
+              <div><b>{stats.tags}</b><span>{t("标签","Tags")}</span></div>
+            </div>
+            <div className="immersive-petal-toggle"><span><Sparkles size={14}/> {t("樱花特效","Sakura petals")}</span><button className={petals?"switch active":"switch"} onClick={()=>setPetals(!petals)} aria-label="Toggle sakura"><i/></button></div>
+          </div>
+        </aside>
+        <section className="immersive-feed">
+          <div className="immersive-feed-head"><div><span className="immersive-feed-kicker">WELCOME TO MY LITTLE WORLD</span><h2>{t("最近在这里","A little update")}</h2><p>{t("把喜欢的事物，慢慢收集起来。","Collecting little things that make life beautiful.")}</p></div><span className="immersive-date"><CalendarDays size={15}/>{new Date().toLocaleDateString(english?"en-US":"zh-CN")}</span></div>
+          <div className="immersive-feature-list">{cards.map((card,i)=>{const Icon=card.icon;const liveMeta=i===0?`${stats.notes} 篇笔记 · ${stats.tags} 个标签`:i===1?`${resourceCount} 个资源`:i===2?`${stats.moments} 条动态`:`${announcements.length} 条公告`;return <Link href={card.href} key={card.title} className={`immersive-article immersive-article-${i}`}><span className="immersive-article-icon"><Icon size={19}/></span><span className="immersive-article-body"><small>{card.en}</small><b>{t(card.title,card.en.replace("STUDY NOTES","Study notes").replace("RESOURCE HUB","Resource hub").replace("MOMENTS","Moments").replace("ANNOUNCEMENTS","Announcements"))}</b><span>{card.desc}</span><em>{liveMeta} · {card.tag}</em></span><ArrowUpRight size={19}/></Link>})}</div>
+          <section className="immersive-latest"><div className="immersive-section-heading"><h3>{t("最近更新","Recently updated")}</h3><Link href="/notes">{t("查看全部","View all")} <ArrowUpRight size={14}/></Link></div>{recentNotes.length?recentNotes.map(n=><Link href={`/notes/${n.slug}`} className="immersive-latest-row" key={n.id}><time>{new Date(n.createdAt).toLocaleDateString(english?"en-US":"zh-CN",{month:"short",day:"2-digit"})}</time><span><b>{n.title}</b><small>学习笔记 · {n.wordCount} 字</small></span><ChevronRight size={16}/></Link>):<p className="empty-state">还没有公开笔记</p>}</section>
+          {announcements.length>0&&<section className="immersive-latest"><div className="immersive-section-heading"><h3>📢 网站公告</h3><span>ANNOUNCEMENTS</span></div>{announcements.map(a=><Link href={`/announcements/${a.id}`} className="immersive-latest-row" key={a.id}><time>{a.publishedAt?new Date(a.publishedAt).toLocaleDateString():"NEW"}</time><span><b>{a.title}</b><small>{a.excerpt}</small></span><ChevronRight size={16}/></Link>)}</section>}
         </section>
-        <section className="glass-card pin-card"><div className="section-heading"><h3><Pin size={15}/> {t("图钉","Pinned")}</h3><span className="tiny-label">FEATURED</span></div>{recentNotes.filter(n=>n.pinned).map(n=><Link href={`/notes/${n.slug}`} className="pin-item" key={n.id}><span className="pin-icon">✧</span><span><b>{n.title}</b><small>学习笔记 · 置顶</small></span><ChevronRight size={15}/></Link>)}{pinnedMoments.map(m=><Link href={`/moments/${m.id}`} className="pin-item" key={m.id}><span className="pin-icon">🌸</span><span><b>{m.content.slice(0,28)||"时刻"}</b><small>时刻 · 置顶</small></span><ChevronRight size={15}/></Link>)}{pinnedResources.map(x=><Link href={`/resources/${x.id}`} className="pin-item" key={x.id}><span className="pin-icon">↗</span><span><b>{x.title}</b><small>资源导航 · 置顶</small></span><ChevronRight size={15}/></Link>)}{pinnedAnime.map(x=><Link href={`/anime/${x.id}`} className="pin-item" key={x.id}><span className="pin-icon">✿</span><span><b>{x.title}</b><small>动漫档案 · 置顶</small></span><ChevronRight size={15}/></Link>)}{!recentNotes.some(n=>n.pinned)&&pinnedMoments.length===0&&pinnedResources.length===0&&pinnedAnime.length===0&&<p className="empty-state">暂无置顶内容</p>}</section>
-        <div className="petal-toggle glass-card"><span><Sparkles size={15}/> {t("樱花特效","Sakura petals")}</span><button className={petals?"switch active":"switch"} onClick={()=>setPetals(!petals)} aria-label="Toggle sakura"><i/></button></div>
-      </aside>
-
-      <section className="feed-column"><div className="welcome-row"><div><span className="eyebrow">WELCOME TO MY LITTLE WORLD</span><h2>{t("最近在这里","A little update")}</h2></div><span className="date-pill"><CalendarDays size={14}/> {new Date().toLocaleDateString(english?"en-US":"zh-CN")}</span></div>
-        <div className="feature-list">{cards.map((card,i)=>{const Icon=card.icon;const liveMeta=i===0?`${stats.notes} 篇笔记 · ${stats.tags} 个标签`:i===1?`${resourceCount} 个资源 · 实际收录`:i===2?`${stats.moments} 条动态 · 实际发布`: `${announcements.length} 条公告 · 实际发布`;return <Link href={card.href} key={card.title} className={`feature-card feature-${i}`}><div className="feature-icon"><Icon size={19}/></div><div className="feature-body"><div className="feature-kicker">{card.en}</div><h3>{t(card.title,card.en.replace("STUDY NOTES","Study notes").replace("RESOURCE HUB","Resource hub").replace("MOMENTS","Moments").replace("ANNOUNCEMENTS","Announcements"))}</h3><p>{card.desc}</p><div className="feature-meta"><span>{liveMeta}</span><em>{card.tag}</em></div></div><span className="feature-arrow"><ChevronRight size={19}/></span></Link>})}</div>
-        <section className="glass-card latest-card"><div className="section-heading"><h3>{t("最近更新","Recently updated")}</h3><Link href="/notes">{t("查看全部","View all")} <ArrowUpRight size={13}/></Link></div>{recentNotes.length?recentNotes.map(n=><Link href={`/notes/${n.slug}`} className="latest-row" key={n.id}><span className="latest-date">{new Date(n.createdAt).toLocaleDateString(english?"en-US":"zh-CN",{month:"short",day:"2-digit"})}</span><span className="latest-text"><b>{n.title}</b><small>学习笔记 · {n.wordCount} 字</small></span><span className="tag">#笔记</span></Link>):<p className="empty-state">还没有公开笔记</p>}</section>
-      </section>
-
-      <aside className="right-column"><section className="glass-card stats-card"><div className="section-heading"><h3>{t("站点统计","Site statistics")}</h3><span className="live-dot">LIVE</span></div><div className="stats-grid"><div><b>{stats.notes}</b><span>{t("笔记","Notes")}</span></div><Link href="/tags" className="stats-tag-link"><b>{stats.tags}</b><span>{t("标签","Tags")}</span></Link><div><b>{stats.todayViews.toLocaleString()}</b><span>{t("今日访问","Today")}</span></div><div><b>{stats.totalWords.toLocaleString()}</b><span>{t("总字数","Words")}</span></div></div><div className="stats-foot">持续记录，慢慢成长 <span>✿</span></div></section>
-        <section className="glass-card calendar-card"><div className="section-heading"><h3>{t("日历","Calendar")}</h3><CalendarDays size={15}/></div><div className="calendar-top"><button onClick={()=>setMonth(new Date(month.getFullYear(),month.getMonth()-1,1))}>‹</button><b>{monthLabel}</b><button onClick={()=>setMonth(new Date(month.getFullYear(),month.getMonth()+1,1))}>›</button></div><div className="calendar-grid">{(english?["S","M","T","W","T","F","S"]:["日","一","二","三","四","五","六"]).map((d,i)=><span className="weekday" key={`${d}${i}`}>{d}</span>)}{days.map((d,i)=><span key={i} className={d===new Date().getDate()&&month.getMonth()===new Date().getMonth()&&month.getFullYear()===new Date().getFullYear()?"calendar-day marked":d?"calendar-day":"calendar-empty"}>{d||""}</span>)}</div><p className="calendar-note"><i/> {t("今天也要保持好心情。","Have a lovely day.")}</p></section>
-        <section className="quote-card"><span>“</span><p>{t("生活不是等待风暴过去，而是学会在雨中跳舞。","Life isn't about waiting for the storm to pass.")}</p><small>— VIVID LITTLE MOMENTS</small></section>
-      </aside>
-    </div></div>
+      </div>
+    </div>
     {announcements.length>0&&<section className="announcement-strip glass-card"><div className="section-heading"><h3>📢 网站公告</h3><span className="tiny-label">ANNOUNCEMENTS</span></div>{announcements.map(a=><Link href={`/announcements/${a.id}`} className="latest-row" key={a.id}><span className="latest-date">{a.publishedAt?new Date(a.publishedAt).toLocaleDateString():"NEW"}</span><span className="latest-text"><b>{a.title}</b><small>{a.excerpt}</small></span><ChevronRight size={14}/></Link>)}</section>}
     <footer className="footer"><span>© {new Date().getFullYear()} AllenShiina</span><span>Made with <b>♥</b> and a little sakura</span><span><button onClick={()=>setDark(!dark)}>{dark?"Light mode":"Dark mode"}</button></span></footer>
   </main>;
