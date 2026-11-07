@@ -81,7 +81,7 @@ export async function PATCH(request: NextRequest, { params }: RouteContext) {
       nickname: typeof data.nickname === "string" ? data.nickname.trim().slice(0, 48) : undefined,
       bio: typeof data.bio === "string" ? data.bio.slice(0, 500) : undefined,
       businessCard: typeof data.businessCard === "string" ? data.businessCard.slice(0, 500) : undefined,
-      image: typeof data.image === "string" ? safeUrl(data.image) || undefined : undefined,
+      image: typeof data.image === "string" ? safeUrl(data.image) || (data.image.startsWith("/api/assets/") ? data.image : undefined) : undefined,
       profileColor: typeof data.profileColor === "string" ? data.profileColor.slice(0, 32) : undefined,
       contactLinks: typeof data.contactLinks === "string" ? data.contactLinks.slice(0, 2000) : undefined,
       locale: ["zh-CN", "en"].includes(data.locale) ? data.locale : undefined,
