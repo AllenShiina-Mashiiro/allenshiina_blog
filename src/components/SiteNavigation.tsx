@@ -5,7 +5,7 @@ import Link from "next/link";
 import {Home,BookOpen,Compass,MessageCircle,Clapperboard,Sparkles,Search,Moon,Sun} from "lucide-react";
 import UserMenu from "@/components/UserMenu";
 export default function SiteNavigation(){
- const path=usePathname();const [q,setQ]=useState("");const [light,setLight]=useState(false);
+ const path=usePathname();const [q,setQ]=useState("");const [light,setLight]=useState(true);
  if(path==="/")return null;
  return <header className="global-site-nav">
   <Link href="/" className="global-site-brand"><span><Home size={16}/></span>AllenShiina</Link>
