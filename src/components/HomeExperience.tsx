@@ -60,7 +60,7 @@ export default function HomeExperience() {
       <div className="hero-bottom"><span>✿ &nbsp; 桜の季節、また会いましょう。</span><span>35° 41′ N · 139° 41′ E</span></div>
     </section>
 
-    <div className="content-wrap">
+    <div className="home-content-surface"><div className="content-wrap">
       <aside className="left-column">
         <section className="profile-card glass-card">
           <div className="profile-cover"><span>🌸</span></div><div className="avatar-art">{profileAvatar?<img src={profileAvatar} alt="管理员头像"/>:<div className="avatar-face">A</div>}<span className="online-dot"/></div>
@@ -81,7 +81,7 @@ export default function HomeExperience() {
         <section className="glass-card calendar-card"><div className="section-heading"><h3>{t("日历","Calendar")}</h3><CalendarDays size={15}/></div><div className="calendar-top"><button onClick={()=>setMonth(new Date(month.getFullYear(),month.getMonth()-1,1))}>‹</button><b>{monthLabel}</b><button onClick={()=>setMonth(new Date(month.getFullYear(),month.getMonth()+1,1))}>›</button></div><div className="calendar-grid">{(english?["S","M","T","W","T","F","S"]:["日","一","二","三","四","五","六"]).map((d,i)=><span className="weekday" key={`${d}${i}`}>{d}</span>)}{days.map((d,i)=><span key={i} className={d===new Date().getDate()&&month.getMonth()===new Date().getMonth()&&month.getFullYear()===new Date().getFullYear()?"calendar-day marked":d?"calendar-day":"calendar-empty"}>{d||""}</span>)}</div><p className="calendar-note"><i/> {t("今天也要保持好心情。","Have a lovely day.")}</p></section>
         <section className="quote-card"><span>“</span><p>{t("生活不是等待风暴过去，而是学会在雨中跳舞。","Life isn't about waiting for the storm to pass.")}</p><small>— VIVID LITTLE MOMENTS</small></section>
       </aside>
-    </div>
+    </div></div>
     {announcements.length>0&&<section className="announcement-strip glass-card"><div className="section-heading"><h3>📢 网站公告</h3><span className="tiny-label">ANNOUNCEMENTS</span></div>{announcements.map(a=><Link href={`/announcements/${a.id}`} className="latest-row" key={a.id}><span className="latest-date">{a.publishedAt?new Date(a.publishedAt).toLocaleDateString():"NEW"}</span><span className="latest-text"><b>{a.title}</b><small>{a.excerpt}</small></span><ChevronRight size={14}/></Link>)}</section>}
     <footer className="footer"><span>© {new Date().getFullYear()} AllenShiina</span><span>Made with <b>♥</b> and a little sakura</span><span><button onClick={()=>setDark(!dark)}>{dark?"Light mode":"Dark mode"}</button></span></footer>
   </main>;
