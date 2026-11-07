@@ -257,3 +257,23 @@ html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark te
 /* Keep the hero artwork strictly inside its own banner; decorative layers never tile the uploaded image. */
 .hero-scene:before,.hero-scene:after{pointer-events:none}
 .hero-scene{background-repeat:no-repeat!important}
+
+
+/* Profile cover is a real image layer; identity content stays above the gradient. */
+.profile-hero{position:relative;isolation:isolate;min-height:260px;display:flex;flex-direction:row!important;align-items:flex-end!important;gap:20px;padding:130px 24px 24px;margin:10px 0 25px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#d9c4cf,#9bb8b6)}
+.profile-hero-cover,.profile-hero-shade{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.profile-hero-cover img{width:100%;height:100%;display:block;object-fit:cover;object-position:center}
+.profile-hero-shade{z-index:-1;background:linear-gradient(180deg,rgba(12,18,22,.05) 0%,rgba(12,18,22,.2) 42%,rgba(8,13,17,.82) 100%)}
+.profile-hero-content{display:flex;align-items:flex-end;gap:20px;min-width:0;width:100%;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.38)}
+.profile-hero-content>div:last-child{min-width:0}
+.profile-hero-content h1{color:#fff;margin:5px 0}
+.profile-hero-content p{color:rgba(255,255,255,.9);margin:4px 0}
+.profile-hero-content .eyebrow{color:#b9f2df}
+.profile-hero .profile-avatar{flex:none;border:3px solid rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.moment-engagement{display:flex;flex-wrap:wrap;gap:18px;margin:18px 0 10px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted);font-size:13px}
+.moment-engagement b{color:var(--ink);margin-left:4px}
+.moment-actionbar{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0 18px}
+.moment-actionbar button,.moment-actionbar a{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);font-size:13px;cursor:pointer}
+.moment-actionbar button:disabled{opacity:.55;cursor:not-allowed}
+.moment-actionbar button:hover:not(:disabled),.moment-actionbar a:hover{border-color:var(--mint);color:var(--mint)}
+@media(max-width:620px){.profile-hero{min-height:300px;padding:110px 16px 18px}.profile-hero-content{align-items:flex-start;flex-direction:column;gap:12px}.profile-hero .profile-avatar{width:76px;height:76px}}
