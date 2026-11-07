@@ -239,3 +239,21 @@ html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark te
 .resource-card-row .resource-logo-link span{max-width:60px;font-size:9px;line-height:1.2;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .resource-card-row .resource-logo-link:hover{border-color:var(--mint);transform:translateY(-2px)}
 :root[data-theme="light"] .resource-card-row .resource-logo-link{background:#fffdf8;border-color:#e8ddd2}
+
+
+/* Home hero/content seam: one continuous cream surface with a diagonal top edge. */
+.hero{isolation:isolate;background-repeat:no-repeat}
+.hero-scene{background-size:cover!important;background-position:center center!important;background-repeat:no-repeat!important}
+.hero-scene[style*="background-image"]{background-size:cover!important;background-position:center center!important;background-repeat:no-repeat!important}
+.home-content-surface{position:relative;z-index:5;margin-top:-105px;padding:72px 0 34px;background-color:#fbf7ef;background-image:radial-gradient(rgba(126,101,78,.075) .7px,transparent .8px),linear-gradient(135deg,rgba(255,255,255,.55),transparent 48%);background-size:23px 23px,100% 100%;clip-path:polygon(0 105px,100% 0,100% 100%,0 100%);isolation:isolate}
+.home-content-surface .content-wrap{width:min(1120px,calc(100% - 40px));margin:0 auto;grid-template-columns:220px minmax(0,1fr) 220px;align-items:start;gap:14px}
+.home-content-surface .glass-card,.home-content-surface .feature-card,.home-content-surface .date-pill{box-shadow:0 14px 38px rgba(80,58,42,.10)}
+.home-content-surface .left-column,.home-content-surface .right-column{min-width:0}
+:root[data-theme="light"] .home-content-surface{background-color:#fbf7ef}
+:root[data-theme="dark"] .home-content-surface{background-color:#101c1b;background-image:radial-gradient(rgba(210,235,224,.055) .7px,transparent .8px),linear-gradient(135deg,rgba(255,255,255,.025),transparent 48%)}
+@media(max-width:900px){.home-content-surface{margin-top:-78px;padding-top:92px;clip-path:polygon(0 78px,100% 0,100% 100%,0 100%)}.home-content-surface .content-wrap{grid-template-columns:190px minmax(0,1fr) 190px}}
+@media(max-width:760px){.home-content-surface{margin-top:-54px;padding-top:76px;clip-path:polygon(0 54px,100% 0,100% 100%,0 100%)}.home-content-surface .content-wrap{grid-template-columns:1fr}.home-content-surface .left-column,.home-content-surface .right-column{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}}
+@media(max-width:520px){.home-content-surface .left-column,.home-content-surface .right-column{grid-template-columns:1fr}.hero{height:520px}}
+/* Keep the hero artwork strictly inside its own banner; decorative layers never tile the uploaded image. */
+.hero-scene:before,.hero-scene:after{pointer-events:none}
+.hero-scene{background-repeat:no-repeat!important}
