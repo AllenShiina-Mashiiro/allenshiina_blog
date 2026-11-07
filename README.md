@@ -24,11 +24,11 @@ A Next.js App Router application for study notes, resource navigation, moments, 
 
 ## Local development
 
-Requirements: Node.js 22+, npm or pnpm, PostgreSQL 18, Redis (recommended), and an S3-compatible bucket for image upload.
+Requirements: Node.js 22+, npm or pnpm, PostgreSQL 18. Redis is recommended but optional. Image upload uses local disk by default; S3-compatible storage is optional.
 
 ```bash
 cp .env.example .env
-# Fill DATABASE_URL, AUTH_SECRET, SMTP and optional OAuth / S3 / Redis values
+# Fill DATABASE_URL and AUTH_SECRET. SMTP is needed for email features; OAuth / Redis / S3 are optional.
 npm install
 npx prisma generate
 npx prisma db push
@@ -39,7 +39,7 @@ Open `http://localhost:3000`. To bootstrap the admin role, set `ADMIN_EMAIL` bef
 
 ## Required environment
 
-See `.env.example`. Never commit `.env`, database passwords, OAuth secrets, SMTP app passwords, or S3 credentials. If any credential was ever committed, revoke and rotate it immediately. Production image uploads require `S3_ENDPOINT` (if non-AWS), `S3_BUCKET`, access key, secret, and `S3_PUBLIC_BASE_URL`.
+See `.env.example`. Never commit `.env`, database passwords, OAuth secrets, SMTP app passwords, or S3 credentials. If any credential was ever committed, revoke and rotate it immediately. Image uploads default to `STORAGE_DRIVER=local` and are stored under `UPLOAD_DIR` (default `./data/uploads`). Keep this directory persistent and back it up with the database. For multi-instance production or external object storage, set `STORAGE_DRIVER=s3` and configure `S3_ENDPOINT` (if non-AWS), `S3_BUCKET`, access key, secret, and `S3_PUBLIC_BASE_URL`. Local-disk mode is best for a single server or a deployment with a persistent shared volume.
 
 Google and GitHub OAuth are enabled when their client ID/secret pairs are configured. QQ and NetEase mailbox addresses can use ordinary email registration; dedicated QQ OAuth requires an approved QQ Connect application and its provider configuration. Do not claim it is enabled until credentials and callback verification are completed.
 
