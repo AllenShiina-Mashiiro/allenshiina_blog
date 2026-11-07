@@ -100,3 +100,4 @@ html[data-theme="light"] .site.dark button:not(.switch){color:#28443d}
 html[data-theme="light"] .site.dark .primary-link{background:#dff4ec;color:#245b4c;border:1px solid #b9e4d5}
 html[data-theme="light"] .site.dark .ghost-link{background:#fff;color:#355e59;border:1px solid #b7d6cc}
 html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark textarea,html[data-theme="light"] .site.dark select{background:#fff;color:#263a37;border-color:#bfd4cc}
+.global-theme-toggle{border:0;background:transparent;color:var(--ink);width:32px;height:32px;border-radius:9px;display:grid;place-items:center;cursor:pointer}.global-theme-toggle:hover{background:rgba(139,216,195,.16);color:var(--mint)}
