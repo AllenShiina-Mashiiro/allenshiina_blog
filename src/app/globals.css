@@ -200,3 +200,5 @@ html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark te
 .copy-code{position:absolute;right:10px;top:9px;z-index:2;border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:5px 9px;background:#3a3e49;color:#fff;font-size:12px;cursor:pointer}
 :root[data-theme="light"] .code-wrap{background:#222630;color:#f5f5f5}
 @media(max-width:680px){.device-grid{grid-template-columns:1fr}}
+
+.chat-sender-link{display:inline-flex;font-weight:750;color:var(--ink);text-decoration:none}.chat-sender-link:hover{color:var(--mint);text-decoration:underline}
