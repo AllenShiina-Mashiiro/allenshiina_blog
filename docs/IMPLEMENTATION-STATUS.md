@@ -3,7 +3,7 @@
 This repository's 21-section requirements checklist is the acceptance baseline. Source implementation and production verification are separate gates.
 
 ## Local source bundle prepared
-A 111-file Next.js/TypeScript project has been assembled in the current development workspace. It includes the application routes/components, Prisma schema, Auth.js wiring, SMTP verification/reset, notes, moments, comments, resources, anime, chat/SSE, notifications, admin moderation, S3 upload verification, profile/account flows, Sakura particles, optional Live2D, Docker/Nginx, CI and scheduled cleanup.
+A 111-file Next.js/TypeScript project has been assembled in the current development workspace and packaged for download. **Important: this source bundle has not yet been committed into this GitHub branch; the current branch contains the README and documentation only.** It includes the application routes/components, Prisma schema, Auth.js wiring, SMTP verification/reset, notes, moments, comments, resources, anime, chat/SSE, notifications, admin moderation, S3 upload verification, profile/account flows, Sakura particles, optional Live2D, Docker/Nginx, CI and scheduled cleanup.
 
 ## Verification results
 - TypeScript/TSX syntax transpilation: passed (0 syntax diagnostics).
