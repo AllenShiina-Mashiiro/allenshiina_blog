@@ -55,7 +55,7 @@ export default function HomeExperience() {
     </header>
 
     <section className="hero">
-      <div className="hero-scene" style={heroBackgrounds[heroIndex]?{backgroundImage:`linear-gradient(180deg,rgba(12,27,39,.04),rgba(10,24,27,.15)),url(${heroBackgrounds[heroIndex]})`,backgroundSize:"cover",backgroundPosition:"center"}:undefined}><div className="hero-split"/><div className="hero-glow"/><div className="tree tree-left"/><div className="tree tree-right"/><div className="hero-grain"/></div>
+      <div className="hero-scene" style={heroBackgrounds[heroIndex]?{backgroundImage:`linear-gradient(180deg,rgba(12,27,39,.04),rgba(10,24,27,.15)),url(${heroBackgrounds[heroIndex]})`,backgroundSize:"cover",backgroundPosition:"center",backgroundRepeat:"no-repeat"}:undefined}><div className="hero-split"/><div className="hero-glow"/><div className="tree tree-left"/><div className="tree tree-right"/><div className="hero-grain"/></div>
       <div className="hero-copy"><span className="eyebrow"><Sparkles size={13}/> A PERSONAL SPACE · EST. 2026</span><h1>{heroTitle}</h1><p>{english?"Collecting little things that make life beautiful.":heroSubtitle}</p><div className="hero-actions"><Link href="/about" className="primary-link">{t("认识一下","Get to know me")} <ArrowUpRight size={15}/></Link><Link href="/notes" className="ghost-link">{t("浏览笔记","Explore notes")} <ChevronRight size={15}/></Link></div></div>
       <div className="hero-bottom"><span>✿ &nbsp; 桜の季節、また会いましょう。</span><span>35° 41′ N · 139° 41′ E</span></div>
     </section>
