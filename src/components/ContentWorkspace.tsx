@@ -27,3 +27,4 @@ export default function ContentWorkspace({section}:{section:keyof typeof cfg}){
  {!room&&loading&&<p>正在加载…</p>}
  {!room&&!loading&&rows.length===0&&<p className="empty-state">这里还没有内容。</p>}
  {!room&&!loading&&rows.length>0&&<div className="workspace-grid">{rows.map(r=><article className="workspace-card" key={r.id}><h3>{r.title||r.name||"时刻"}</h3><p>{r.content||r.description||r.summary||""}</p>{r.images?.map((im:Row)=><a key={im.id} href={im.asset?.publicUrl||"#"} target="_blank" rel="noreferrer"><img src={im.asset?.publicUrl||""} alt="图片" style={{maxWidth:180}}/></a>)}{r.coverUrl&&<img src={r.coverUrl} alt="封面" style={{maxWidth:180}}/>}<small>{r.author?.nickname||r.author?.username||r.category||""}</small><div className="card-actions"><button onClick={()=>editItem(r)}>编辑</button><button onClick={()=>removeItem(r)}>删除</button></div></article>)}</div>}</section></div></main>
+}
