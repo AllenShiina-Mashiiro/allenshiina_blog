@@ -286,3 +286,8 @@ html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark te
 :root[data-theme="dark"] .home-content-surface::before{background-color:#101c1b;background-image:radial-gradient(rgba(210,235,224,.055) .7px,transparent .8px),linear-gradient(135deg,rgba(255,255,255,.025),transparent 48%)}
 @media(max-width:900px){.home-content-surface{padding-top:34px}.home-content-surface::before{clip-path:polygon(0 78px,100% 0,100% 100%,0 100%)}}
 @media(max-width:760px){.home-content-surface{padding-top:68px}.home-content-surface::before{clip-path:polygon(0 54px,100% 0,100% 100%,0 100%)}}
+
+
+/* Brand wordmark must retain readable contrast on the light navigation bar. */
+.site.light .topbar .brand,:root[data-theme="light"] .site .topbar .brand{color:#256b59}
+.site.light .topbar .brand:hover,:root[data-theme="light"] .site .topbar .brand:hover{color:#174b3e}
