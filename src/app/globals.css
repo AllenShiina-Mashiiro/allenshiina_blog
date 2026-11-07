@@ -116,3 +116,7 @@ html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark te
 .chat-avatar{width:48px;height:48px;min-width:48px;font-size:1.5rem;display:grid;place-items:center;border-radius:50%}
 .chat-message p{font-size:1.02rem;line-height:1.7;overflow-wrap:anywhere}
 @media(max-width:700px){.moments-feed>.workspace-card{padding:16px}.moments-feed .moment-gallery img{height:160px}.chat-avatar{width:40px;height:40px;min-width:40px}}
+
+.global-background{position:fixed;inset:0;z-index:0;pointer-events:none;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:.42;transition:background-image 1s ease}
+.site,.page-shell,.workspace{position:relative}
+.global-site-nav{z-index:1000}
