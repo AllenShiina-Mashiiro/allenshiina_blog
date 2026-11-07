@@ -3,7 +3,7 @@ import {useEffect,useRef,useState} from "react";
 import type {PointerEvent as ReactPointerEvent} from "react";
 type Size={width:number;height:number};
 export default function ImageCropper({file,onCancel,onComplete}:{file:File;onCancel:()=>void;onComplete:(file:File)=>void}){
- const [src,setSrc]=useState(""),[size,setSize]=useState<Size>({width:0,height:0}),[zoom,setZoom]=useState(1),[rotation,setRotation]=useState(0),[offset,setOffset]=useState({x:0,y:0}),[busy,setBusy]=useState(false);
+ const [src,setSrc]=useState(""),[size,setSize]=useState<Size>({width:0,height:0}),[frameSize,setFrameSize]=useState(420),[zoom,setZoom]=useState(1),[rotation,setRotation]=useState(0),[offset,setOffset]=useState({x:0,y:0}),[busy,setBusy]=useState(false);
  const frame=useRef<HTMLDivElement>(null),drag=useRef<{x:number;y:number;ox:number;oy:number}|null>(null);
  useEffect(()=>{const u=URL.createObjectURL(file);setSrc(u);const img=new Image();img.onload=()=>setSize({width:img.naturalWidth,height:img.naturalHeight});img.src=u;return()=>URL.revokeObjectURL(u)},[file]);
  const frameSize= Math.min(420,typeof window!=="undefined"?window.innerWidth*.75:420);
