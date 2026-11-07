@@ -24,3 +24,64 @@
 .search-filters{grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr auto}
 .brand-mark img{width:100%;height:100%;object-fit:contain;border-radius:6px}
 .profile-hero .profile-avatar{background:linear-gradient(140deg,var(--profile-color,#f4c5d9),#89d3be)}.profile-contacts{font-size:10px;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}
+
+
+/* v1.0.1-dev hotfixes: accessible auth controls and a continuous avatar menu hover target */
+.auth-panel .primary-link {
+  background: #8bd8c3;
+  color: #123b32 !important;
+  border: 1px solid #65c5a9;
+  font-weight: 700;
+}
+.auth-panel .primary-link:hover {
+  background: #a4e6d3;
+  color: #123b32 !important;
+}
+.auth-panel .ghost-link,
+.auth-panel .oauth-row button,
+.auth-panel .inline-actions button,
+.auth-panel .inline-button {
+  background: var(--panel2);
+  color: var(--ink) !important;
+  border: 1px solid var(--line);
+}
+.auth-panel .ghost-link:hover,
+.auth-panel .oauth-row button:hover,
+.auth-panel .inline-actions button:hover,
+.auth-panel .inline-button:hover {
+  background: rgba(139, 216, 195, .16);
+  color: var(--ink) !important;
+}
+.auth-panel .field {
+  color: var(--ink);
+  background: var(--panel2);
+}
+.auth-panel .field::placeholder {
+  color: var(--muted);
+}
+.user-menu {
+  position: relative;
+  z-index: 50;
+  align-self: center;
+}
+.user-dropdown {
+  top: 100%;
+  right: 0;
+  z-index: 60;
+  min-width: 190px;
+  padding: 12px;
+  pointer-events: auto;
+}
+.user-menu:hover .user-dropdown,
+.user-menu:focus-within .user-dropdown {
+  display: flex;
+}
+.user-dropdown a,
+.user-dropdown button {
+  min-height: 32px;
+  border-radius: 7px;
+}
+.user-dropdown a:hover,
+.user-dropdown button:hover {
+  background: rgba(139, 216, 195, .12);
+}
