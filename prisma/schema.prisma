@@ -238,6 +238,7 @@ model Resource {
   category String
   tags String[]
   sortOrder Int @default(0)
+  pinned Boolean @default(false)
   active Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -248,6 +249,7 @@ model AnimeEntry {
   summary String? @db.Text
   releaseDate DateTime?
   sourceUrl String?
+  pinned Boolean @default(false)
   coverAssetId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
