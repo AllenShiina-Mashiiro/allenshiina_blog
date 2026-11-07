@@ -230,3 +230,12 @@ html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark te
  .chat-room-layout>.chat-main,.chat-room-layout>.chat-members{grid-column:1;grid-row:auto}
  .chat-room-layout>.chat-members{position:static;max-height:270px;min-height:0}
 }
+
+
+/* Resource tiles use a compact site mark instead of an oversized cover thumbnail. */
+.resource-card-row{align-items:center;min-height:116px}
+.resource-card-row .resource-logo-link{width:68px;height:68px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid var(--line);border-radius:16px;background:var(--panel2);overflow:hidden}
+.resource-card-row .resource-logo-link img{width:38px;height:38px;object-fit:contain;border-radius:8px}
+.resource-card-row .resource-logo-link span{max-width:60px;font-size:9px;line-height:1.2;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.resource-card-row .resource-logo-link:hover{border-color:var(--mint);transform:translateY(-2px)}
+:root[data-theme="light"] .resource-card-row .resource-logo-link{background:#fffdf8;border-color:#e8ddd2}
