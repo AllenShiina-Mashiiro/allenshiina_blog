@@ -1,0 +1,1 @@
+"use client";import dynamic from "next/dynamic";const Companion=dynamic(()=>import("@/components/Companion"),{ssr:false,loading:()=>null});export default function CompanionLoader(){return <Companion/>}

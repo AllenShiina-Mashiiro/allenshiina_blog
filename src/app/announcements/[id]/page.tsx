@@ -1,0 +1,1 @@
+import AnnouncementClient from "@/components/AnnouncementClient";export default async function Announcement({params}:{params:Promise<{id:string}>}){const {id}=await params;return <AnnouncementClient id={id}/>}

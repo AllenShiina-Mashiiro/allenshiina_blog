@@ -1,0 +1,2 @@
+import { NextRequest,NextResponse } from "next/server";import { createHash } from "node:crypto";import { prisma } from "@/lib/prisma";
+export async function POST(req:NextRequest){const ip=req.headers.get("x-forwarded-for")?.split(",")[0]||"unknown",ua=req.headers.get("user-agent")||"",day=new Date().toISOString().slice(0,10),visitorHash=createHash("sha256").update(`${ip}:${ua}:${process.env.APP_HASH_SECRET}`).digest("hex");try{await prisma.viewDaily.create({data:{contentType:"site",contentId:"home",dayKey:day,visitorHash}})}catch{}return NextResponse.json({ok:true})}

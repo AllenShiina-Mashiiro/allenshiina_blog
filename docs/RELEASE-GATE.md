@@ -1,19 +1,23 @@
-# Release gate
+# v1.0.1-dev release gate
 
-Before merging v1.0.1-dev into master:
+A feature is only marked complete after implementation, authorization checks, automated tests, and environment verification. The owner-provided 21-section `prompt-words.txt` is the product source of truth; see `REQUIREMENTS.md` for the detailed acceptance checklist.
 
-- [ ] Clean Node 22 npm install succeeds.
-- [ ] Prisma validate/generate and PostgreSQL 18 migration deploy succeed.
-- [ ] TypeScript typecheck, unit tests and Next production build pass.
-- [ ] Browser E2E verifies registration, login, OAuth, password reset, authorization and logout.
-- [ ] SMTP delivery, Google/GitHub callbacks and provider linking tested with real apps.
-- [ ] S3 signed upload, SHA-256 verification, MIME signature, CORS and deletion lifecycle tested.
-- [ ] Notes/moments, encryption, tags, comments/replies, likes/reposts and view deduplication tested.
-- [ ] Chat SSE, invite joining, @mentions and 180-day cleanup tested.
-- [ ] Admin moderation, announcements and account deletion/preservation tested.
-- [ ] Profile likes 10/day and 04:00 reset verified under concurrency.
-- [ ] Live2D model/Cubism assets licensed and production-tested, or feature explicitly disabled.
-- [ ] Desktop/mobile browser checks, Ubuntu Docker/Nginx/TLS and backup restore pass.
-- [ ] No secrets or personal data in Git history.
+Before merging to `master`:
 
-An unchecked item blocks release.
+- [ ] `npm install` succeeds on a clean Node 22 environment.
+- [ ] `npx prisma validate`, schema generation, and migration deploy succeed against PostgreSQL 18.
+- [ ] `npm run typecheck` and `npm run build` pass.
+- [ ] CI passes; add integration and browser E2E coverage for authentication, ownership, moderation, file lifecycle and chat retention.
+- [ ] Google/GitHub OAuth callback flows verified with real provider apps; SMTP verification and reset emails delivered; QQ Connect explicitly configured if offered.
+- [ ] S3-compatible signed upload, CORS, SHA-256 metadata, deduplication and deletion verified.
+- [ ] Live2D model and Cubism Core assets supplied under valid license; dynamic import tested in production browser.
+- [ ] PhotoSwipe, Markdown sanitization, KaTeX and code highlighting verified.
+- [ ] Chat 180-day cleanup and notifications tested.
+- [ ] Profile likes daily reset at 04:00 verified under concurrency.
+- [ ] Account deletion preserves note/moment content and referenced media, removes other personal assets and data.
+- [ ] Admin controls and all authorization boundaries tested server-side.
+- [ ] Mobile Safari/Chrome and desktop Chrome/Firefox checked.
+- [ ] Ubuntu Docker + Nginx deployment, TLS, backup and restore tested.
+- [ ] No secrets, private keys, user data, or real OAuth/SMTP credentials in Git history.
+
+Do not merge or tag a production release while any required checkbox is incomplete.

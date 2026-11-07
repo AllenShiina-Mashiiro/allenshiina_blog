@@ -1,0 +1,5 @@
+import Redis from "ioredis";
+let client: Redis | null = null;const memory=new Map<string,{count:number;expires:number}>();
+export function redis() { if (!process.env.REDIS_URL) return null; if (!client) client = new Redis(process.env.REDIS_URL, { maxRetriesPerRequest: 1, lazyConnect: true }); return client; }
+export async function allowRate(key: string, limit: number, seconds: number) { const r = redis(); if (r) { try { const n = await r.incr(key); if (n === 1) await r.expire(key, seconds); return n <= limit; } catch { /* fall back to process-local limiter; configure Redis in production */ } } const now=Date.now(),entry=memory.get(key);if(!entry||entry.expires<now){memory.set(key,{count:1,expires:now+seconds*1000});return true;}entry.count++;return entry.count<=limit; }
+export async function cached<T>(key:string,ttl:number,loader:()=>Promise<T>):Promise<T>{const r=redis();if(r){try{const hit=await r.get(`cache:${key}`);if(hit)return JSON.parse(hit) as T;}catch{}}const value=await loader();if(r){try{await r.set(`cache:${key}`,JSON.stringify(value),"EX",ttl)}catch{}}return value}

@@ -1,33 +1,73 @@
 # allenshiina_blog
 
-AllenShiina personal blog & community platform · target release **v1.0.1-dev**.
+**AllenShiina personal blog & community** · `v1.0.1-dev`
 
-- Repository: https://github.com/AllenShiina-Mashiiro/allenshiina_blog
-- Active development branch: `v1.0.1-dev`
-- Stable release branch: `master`
-- Requested visibility: Public
-- Previous `AllenShiina-blog-beta` repository remains unchanged.
+A Next.js App Router application for study notes, resource navigation, moments, anime records, public chat rooms, user profiles, notifications and admin moderation. The visual direction references [Mizuki](https://mizuki.mysqil.com/) and [blog.mysqil.com](https://blog.mysqil.com/); the Sakura particle component is based on the supplied `SakuraPetals.tsx`.
 
-## Product requirements
+## Branch policy
 
-The owner-provided 21-section `prompt-words.txt` is the source of truth. The complete acceptance checklist is in [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md).
+- `v1.0.1-dev`: all feature development and integration.
+- `master`: stable releases only; merge only after the release gate passes.
+- `main`: repository bootstrap branch; do not use for day-to-day development.
 
-## Architecture target
+## Stack
 
-Next.js App Router, React, TypeScript, PostgreSQL 18, Prisma, Auth.js, Redis, SSE chat delivery, S3-compatible object storage (OSS/COS/S3), Nodemailer SMTP, PhotoSwipe, KaTeX, highlight.js, optional PixiJS Live2D, Docker, Linux and Nginx.
+- Next.js 15 App Router, React 19, TypeScript
+- PostgreSQL 18, Prisma ORM
+- Auth.js / NextAuth, Google OAuth, GitHub OAuth, Credentials login
+- Nodemailer SMTP email verification and password reset
+- Redis rate limiting/cache foundation
+- S3-compatible object storage (Aliyun OSS / Tencent COS / AWS S3)
+- React Markdown, remark-gfm, KaTeX, highlight.js, PhotoSwipe
+- PixiJS + pixi-live2d-display (requires licensed Live2D model and Cubism Core runtime)
+- Docker, Linux, Nginx, GitHub Actions
 
-## References and credits
+## Local development
 
-- Visual references: https://mizuki.mysqil.com/ and https://blog.mysqil.com/
-- Contribution-wall inspiration: https://github.com/AllenShiina-Mashiiro/sakura-game-archive/tree/v2.5-dev
-- Thanks to Bilibili creator「松坂有希」for open-source inspiration and implementation ideas: https://space.bilibili.com/701864046
+Requirements: Node.js 22+, npm or pnpm, PostgreSQL 18, Redis (recommended), and an S3-compatible bucket for image upload.
 
-## Development and release
+```bash
+cp .env.example .env
+# Fill DATABASE_URL, AUTH_SECRET, SMTP and optional OAuth / S3 / Redis values
+npm install
+npx prisma generate
+npx prisma db push
+npm run dev
+```
 
-All day-to-day work belongs on `v1.0.1-dev`. Do not merge to `master` until [docs/RELEASE-GATE.md](docs/RELEASE-GATE.md) passes.
+Open `http://localhost:3000`. To bootstrap the admin role, set `ADMIN_EMAIL` before signing in with that verified email. Run `npm run db:seed` to create the reserved `deleted_user` system account.
 
-- [Deployment guide](docs/DEPLOYMENT.md)
-- [Implementation and verification status](docs/IMPLEMENTATION-STATUS.md)
-- [21-section requirements checklist](docs/REQUIREMENTS.md)
+## Required environment
 
-**Important:** source implementation, provider configuration and production verification are different things. Do not claim v1.0.1-dev is complete until the source is committed, dependencies install cleanly, Prisma validates, the production build passes, and all release-gate tests pass. Keep all credentials in untracked `.env`; rotate any credential ever exposed in Git.
+See `.env.example`. Never commit `.env`, database passwords, OAuth secrets, SMTP app passwords, or S3 credentials. If any credential was ever committed, revoke and rotate it immediately. Production image uploads require `S3_ENDPOINT` (if non-AWS), `S3_BUCKET`, access key, secret, and `S3_PUBLIC_BASE_URL`.
+
+Google and GitHub OAuth are enabled when their client ID/secret pairs are configured. QQ and NetEase mailbox addresses can use ordinary email registration; dedicated QQ OAuth requires an approved QQ Connect application and its provider configuration. Do not claim it is enabled until credentials and callback verification are completed.
+
+## Deployment
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) and [docs/IMPLEMENTATION-STATUS.md](docs/IMPLEMENTATION-STATUS.md). Docker Compose provides PostgreSQL 18, Redis and the Next.js standalone server. Nginx configuration is in `deploy/nginx/`. Use TLS certificates from your own certificate provider.
+
+## Operations
+
+- `npm run db:push`: initial schema sync; for production releases, generate and commit Prisma migrations before using `prisma migrate deploy`.
+- `npm run db:seed`: create the system deleted-user identity and promote the configured admin email if it already exists.
+- `npm run chat:cleanup`: remove chat messages older than `CHAT_RETENTION_DAYS` (default 180).
+- GitHub Actions runs CI checks and a daily scheduled chat-retention cleanup. Configure the repository secret `DATABASE_URL` for the scheduled job.
+- `GET /api/stats` exposes public aggregate counts. Daily view deduplication uses a visitor hash stored in PostgreSQL.
+
+## Important implementation status
+
+This repository contains an integrated first implementation of the main application and API paths, but a code commit is not proof that every requested production feature is complete. In particular, real OAuth provider credentials, SMTP delivery, S3 bucket permissions/CORS, Live2D model/Cubism runtime assets, QQ Connect, deployment secrets, load testing, security review, and full end-to-end verification must be configured and tested in the target environment. Review [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) and [docs/RELEASE-GATE.md](docs/RELEASE-GATE.md) before calling a release complete.
+
+## Credits and references
+
+- Design reference: [Mizuki](https://mizuki.mysqil.com/), [blog.mysqil.com](https://blog.mysqil.com/)
+- Contribution-wall inspiration: [sakura-game-archive](https://github.com/AllenShiina-Mashiiro/sakura-game-archive/tree/v2.5-dev)
+- Thanks to Bilibili creator **松坂有希** for the open-source inspiration and implementation ideas: https://space.bilibili.com/701864046
+- The previous `AllenShiina-blog-beta` repository is separate and remains untouched.
+
+## Local validation on Windows
+
+See [docs/LOCAL-VALIDATION-WINDOWS.md](docs/LOCAL-VALIDATION-WINDOWS.md). After copying `.env.example` to `.env`, run `npm run check:env`, `npm install`, `npm run db:validate`, `npm run db:generate`, `npm run db:push`, `npm run db:seed`, then `npm run dev`.
+
+Health endpoint: `/api/health` (database readiness plus optional dependency status).
