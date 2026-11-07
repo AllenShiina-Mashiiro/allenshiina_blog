@@ -1,28 +1,33 @@
 # allenshiina_blog
 
-AllenShiina personal blog & community platform.
+AllenShiina personal blog & community platform · target release **v1.0.1-dev**.
 
 - Repository: https://github.com/AllenShiina-Mashiiro/allenshiina_blog
-- Active branch: `v1.0.1-dev`
-- Stable branch: `master`
-- Stack target: Next.js App Router, React, TypeScript, PostgreSQL 18, Prisma, Redis, Socket.IO, S3-compatible object storage, Nginx.
+- Active development branch: `v1.0.1-dev`
+- Stable release branch: `master`
+- Requested visibility: Public
+- Previous `AllenShiina-blog-beta` repository remains unchanged.
 
-## Development policy
+## Product requirements
 
-All feature work happens on `v1.0.1-dev`. `master` is reserved for tested releases. Never commit secrets, SMTP app passwords, OAuth client secrets, database credentials, or storage credentials. Use environment variables and keep `.env` out of Git.
+The owner-provided 21-section `prompt-words.txt` is the source of truth. The complete acceptance checklist is in [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md).
 
-## Requirements baseline
+## Architecture target
 
-The complete 21-section product brief supplied by the project owner is the source of truth. See [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md) for the implementation acceptance checklist.
+Next.js App Router, React, TypeScript, PostgreSQL 18, Prisma, Auth.js, Redis, SSE chat delivery, S3-compatible object storage (OSS/COS/S3), Nodemailer SMTP, PhotoSwipe, KaTeX, highlight.js, optional PixiJS Live2D, Docker, Linux and Nginx.
 
-## Reference material
+## References and credits
 
-- Mizuki visual references: https://mizuki.mysqil.com/ and https://blog.mysqil.com/
-- Contribution wall inspiration: https://github.com/AllenShiina-Mashiiro/sakura-game-archive/tree/v2.5-dev
-- Acknowledgement: Bilibili creator「松坂有希」, https://space.bilibili.com/701864046
+- Visual references: https://mizuki.mysqil.com/ and https://blog.mysqil.com/
+- Contribution-wall inspiration: https://github.com/AllenShiina-Mashiiro/sakura-game-archive/tree/v2.5-dev
+- Thanks to Bilibili creator「松坂有希」for open-source inspiration and implementation ideas: https://space.bilibili.com/701864046
 
-This repository is a new project. The previous `AllenShiina-blog-beta` repository remains unchanged.
+## Development and release
 
-## Current status
+All day-to-day work belongs on `v1.0.1-dev`. Do not merge to `master` until [docs/RELEASE-GATE.md](docs/RELEASE-GATE.md) passes.
 
-The repository and requested branches have been created. This does **not** mean the v1.0.1-dev feature set is complete. Authentication, database-backed content, uploads, moderation, notifications, chat, deployment, and end-to-end verification must not be represented as complete until implemented and tested.
+- [Deployment guide](docs/DEPLOYMENT.md)
+- [Implementation and verification status](docs/IMPLEMENTATION-STATUS.md)
+- [21-section requirements checklist](docs/REQUIREMENTS.md)
+
+**Important:** source implementation, provider configuration and production verification are different things. Do not claim v1.0.1-dev is complete until the source is committed, dependencies install cleanly, Prisma validates, the production build passes, and all release-gate tests pass. Keep all credentials in untracked `.env`; rotate any credential ever exposed in Git.
