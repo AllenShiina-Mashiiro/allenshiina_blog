@@ -1,2 +1,2 @@
 export const RESERVED_USERNAMES = new Set(["admin","administrator","root","login","logout","register","settings","account","api","about","notes","moments","resources","anime","chat","notifications","search","profile","undefined","null","deleted_user"]);
-export function validateUsername(value: string) { const username = value.trim().toLowerCase(); return /^[a-z0-9_]{3,32}$/.test(username) && !RESERVED_USERNAMES.has(username); }
+export function validateUsername(value: string) { const username = value.trim(); return /^[a-z0-9_]{3,32}$/.test(username) && !RESERVED_USERNAMES.has(username); }
