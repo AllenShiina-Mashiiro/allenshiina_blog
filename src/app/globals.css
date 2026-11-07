@@ -101,3 +101,18 @@ html[data-theme="light"] .site.dark .primary-link{background:#dff4ec;color:#245b
 html[data-theme="light"] .site.dark .ghost-link{background:#fff;color:#355e59;border:1px solid #b7d6cc}
 html[data-theme="light"] .site.dark input,html[data-theme="light"] .site.dark textarea,html[data-theme="light"] .site.dark select{background:#fff;color:#263a37;border-color:#bfd4cc}
 .global-theme-toggle{border:0;background:transparent;color:var(--ink);width:32px;height:32px;border-radius:9px;display:grid;place-items:center;cursor:pointer}.global-theme-toggle:hover{background:rgba(139,216,195,.16);color:var(--mint)}
+
+
+/* Social timeline and readability refinements */
+.moments-feed{display:flex;flex-direction:column;gap:18px;width:100%}
+.moments-feed>.workspace-card{width:100%;max-width:none;padding:clamp(20px,2.4vw,32px);border-radius:22px}
+.moments-feed .moment-content,.moments-feed p{font-size:1.04rem;line-height:1.85}
+.moments-feed .moment-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px;margin:16px 0}
+.moments-feed .moment-gallery img{width:100%;height:220px;object-fit:cover;border-radius:14px;cursor:zoom-in}
+.workspace-card h3,.workspace-card h2{font-size:clamp(1.12rem,1.4vw,1.4rem);line-height:1.45}
+.workspace-card p,.page-panel>p,.page-panel label{font-size:1rem;line-height:1.75}
+.chat-log{min-height:55vh;max-height:72vh;padding:clamp(18px,2.5vw,30px);gap:18px}
+.chat-message{display:flex;gap:14px;padding:14px 16px;border-radius:18px;font-size:1rem}
+.chat-avatar{width:48px;height:48px;min-width:48px;font-size:1.5rem;display:grid;place-items:center;border-radius:50%}
+.chat-message p{font-size:1.02rem;line-height:1.7;overflow-wrap:anywhere}
+@media(max-width:700px){.moments-feed>.workspace-card{padding:16px}.moments-feed .moment-gallery img{height:160px}.chat-avatar{width:40px;height:40px;min-width:40px}}
