@@ -6,7 +6,6 @@ export default function ImageCropper({file,aspectRatio=1,onCancel,onComplete}:{f
  const [src,setSrc]=useState(""),[size,setSize]=useState<Size>({width:0,height:0}),[frameSize,setFrameSize]=useState(420),[zoom,setZoom]=useState(1),[rotation,setRotation]=useState(0),[offset,setOffset]=useState({x:0,y:0}),[busy,setBusy]=useState(false),[error,setError]=useState("");
  const frame=useRef<HTMLDivElement>(null),drag=useRef<{x:number;y:number;ox:number;oy:number}|null>(null);
  useEffect(()=>{const u=URL.createObjectURL(file);setSrc(u);const img=new Image();img.onload=()=>setSize({width:img.naturalWidth,height:img.naturalHeight});img.src=u;return()=>URL.revokeObjectURL(u)},[file]);
- const frameSize= Math.min(420,typeof window!=="undefined"?window.innerWidth*.75:420);
  const frameHeight=frameSize/aspectRatio;const baseScale=size.width&&size.height?Math.max(frameSize/size.width,frameHeight/size.height):1;
  function down(e:ReactPointerEvent<HTMLDivElement>){if(busy)return;e.currentTarget.setPointerCapture(e.pointerId);drag.current={x:e.clientX,y:e.clientY,ox:offset.x,oy:offset.y}}
  function move(e:ReactPointerEvent<HTMLDivElement>){if(!drag.current)return;setOffset({x:drag.current.ox+e.clientX-drag.current.x,y:drag.current.oy+e.clientY-drag.current.y})}
