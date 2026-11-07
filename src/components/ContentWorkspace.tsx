@@ -46,7 +46,7 @@ export default function ContentWorkspace({section}:{section:keyof typeof cfg}){
             {messages.map(m=>(
               <div className="chat-message" key={m.id}>
                 <span className="chat-avatar">{m.sender?.image?<img src={m.sender.image} alt=""/>:"✿"}</span>
-                <div><b>{m.sender?.nickname||m.sender?.username||"用户"}</b><small>{new Date(m.createdAt).toLocaleString()}</small><p>{m.body}</p><button onClick={()=>setReplyToId(m.id)}>引用回复</button></div>
+                <div><Link className="chat-sender-link" href={`/profile/${m.sender?.username||""}`}>{m.sender?.nickname||m.sender?.username||"用户"}</Link><small>{new Date(m.createdAt).toLocaleString()}</small><p>{m.body}</p><button onClick={()=>setReplyToId(m.id)}>引用回复</button></div>
               </div>
             ))}
           </div>
