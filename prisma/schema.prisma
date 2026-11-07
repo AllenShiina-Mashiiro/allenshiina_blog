@@ -196,6 +196,7 @@ model Tag {
   name String @unique
   notes NoteTag[]
   moments MomentTag[]
+  anime AnimeTag[]
 }
 model NoteTag {
   noteId String
@@ -254,6 +255,7 @@ model AnimeEntry {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   images AnimeImage[]
+  tags AnimeTag[]
 }
 model AnimeImage {
   id String @id @default(cuid())
