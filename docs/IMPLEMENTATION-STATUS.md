@@ -1,4 +1,4 @@
-# Implementation status — v1.0.1-dev
+# Implementation status — v2.0.1-dev
 
 This document distinguishes source-code implementation from deployment verification. It is intentionally conservative: a route or UI control is not marked production-complete merely because it exists.
 
@@ -35,3 +35,10 @@ Do not mark `v1.0.1-dev` complete or merge it to `master` until every required c
 - TypeScript/TSX syntax transpilation check: 92 files checked, 0 syntax diagnostics.
 - `npm install` was attempted in the provided environment but timed out while accessing the npm registry. Therefore dependency-aware typecheck, Prisma validation/generation, Next production build, and runtime tests remain unverified.
 - The local ZIP intentionally excludes `.env`, `node_modules`, database files, OAuth secrets, SMTP credentials and object-storage keys.
+
+
+## v2.0.1-dev design integration (2026-11-08)
+- Kept the Next.js 15 / React 19 / PostgreSQL 18 / Prisma architecture; the Astro-based Mizuki repository is used as a visual and interaction reference rather than copied as a replacement application.
+- Updated the existing glass UI palette toward sakura pink, soft lavender, and sky blue while retaining responsive layouts and the existing SakuraPetals canvas effect.
+- Updated package metadata and project documentation to `2.0.1-dev`.
+- Validation limitation: GitHub-side file updates were committed, but a clean dependency install, type-check, production build, browser review, and database-backed end-to-end tests have not been run in this environment. Do not treat this branch as release-complete until the release gate passes.
