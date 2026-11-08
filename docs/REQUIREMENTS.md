@@ -1,4 +1,4 @@
-# v1.0.1-dev acceptance checklist
+# v2.0.1-dev acceptance checklist
 
 This checklist preserves the project owner's 21-section `prompt-words.txt` as the acceptance baseline. A feature is complete only after implementation, server-side authorization where relevant, tests, and documentation.
 
