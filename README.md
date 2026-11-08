@@ -1,12 +1,12 @@
 # allenshiina_blog
 
-**AllenShiina personal blog & community** · `v1.0.1-dev`
+**AllenShiina personal blog & community** · `v2.0.1-dev`
 
-A Next.js App Router application for study notes, resource navigation, moments, anime records, public chat rooms, user profiles, notifications and admin moderation. The visual direction references [Mizuki](https://mizuki.mysqil.com/) and [blog.mysqil.com](https://blog.mysqil.com/); the Sakura particle component is based on the supplied `SakuraPetals.tsx`.
+A Next.js App Router application for study notes, resource navigation, moments, anime records, public chat rooms, user profiles, notifications and admin moderation. The visual direction adapts Mizuki's glass navigation, image-led hero, responsive card composition, and theme atmosphere while keeping this project on Next.js so authentication, PostgreSQL-backed content, profiles, comments, notifications, and community features remain server-driven. The Sakura particle component is based on the supplied `SakuraPetals.tsx`.
 
 ## Branch policy
 
-- `v1.0.1-dev`: all feature development and integration.
+- `v2.0.1-dev`: current feature development and integration.
 - `master`: stable releases only; merge only after the release gate passes.
 - `main`: repository bootstrap branch; do not use for day-to-day development.
 
