@@ -1,4 +1,4 @@
-# v1.0.1-dev release gate
+# v2.0.1-dev release gate
 
 A feature is only marked complete after implementation, authorization checks, automated tests, and environment verification. The owner-provided 21-section `prompt-words.txt` is the product source of truth; see `REQUIREMENTS.md` for the detailed acceptance checklist.
 
